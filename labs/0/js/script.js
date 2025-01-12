@@ -121,7 +121,6 @@ class ButtonFactory {
      */
     createButtons() {
         const numButtons = document.getElementById(n).value;
-        console.log(numButtons);
 
         // Input validation
         if (isNaN(numButtons) || numButtons < 3 || numButtons > 7) {
