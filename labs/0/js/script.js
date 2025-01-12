@@ -120,7 +120,8 @@ class ButtonFactory {
      * Creates buttons and adds to an array, based on the user input.
      */
     createButtons() {
-        const numButtons = parseInt(this.n.value);
+        const numButtons = document.getElementById(n).value;
+        console.log(numButtons);
 
         // Input validation
         if (isNaN(numButtons) || numButtons < 3 || numButtons > 7) {
