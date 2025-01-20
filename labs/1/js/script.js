@@ -18,6 +18,7 @@ const back = 'back';
 const writerHTML = 'writer';
 const readerHTML = 'reader';
 const buttonRemove = 'button';
+const className = 'class';
 
 // Local storage and note strings
 const storageNotes = 'notes';
@@ -26,11 +27,18 @@ const dataIndex = 'data-index';
 const title = 'title';
 const notesContainer = 'notesContainer';
 const divNotes = 'div';
+const inputText = 'textarea';
+const notesInput = 'noteInput_';
+const storage = 'storage';
+const input = 'input';
 
 // Time strings
 const dateTime = 'dateTime';
 const storeTime = 'storeTime';
 const updateTime = 'updateTime';
+
+// General string
+const DOMContentLoaded = 'DOMContentLoaded';
 
 /**
  * Controller for the navigational buttons within the application.
@@ -73,34 +81,30 @@ class navigationController {
 class noteButtonController {
     constructor() {}
 
+    updateNote(noteInput) {
+        const note = noteInput ? noteInput.value : '';
+        if (note) {
+            // JSON string retrieved from localStorage via key is parsed into JavaScript array
+            // If empty, defaults to an empty array
+            const notes = JSON.parse(localStorage.getItem(storageNotes)) || [];
+            notes[parseInt(noteInput.id.split("_")[1], 10)] = note;
+            // notes.push(note);
+            // Converts the notes array back into JSON string and stores it in localStorage with the key storageNotes
+            localStorage.setItem(storageNotes, JSON.stringify(notes));
+        }
+        this.updateTime();
+    }
+
     /**
      * Handles the button click event to add a new note.
      * @param {HTMLElement} button
      */
     addButton(button) {
         button.addEventListener(click, () => {
-            // Get the note from the HTML input field
-            const noteContainer = document.getElementById(notesContainer);
-            const noteInput = document.getElementById(elementNote);
-            // If there is a note, add it to the local storage and display all notes within storage
-            if (notesContainer.style.display === 'none') {
-                notesContainer.style.display = 'block';
-                noteInput.focus();
-            } else {
-                const note = noteInput ? noteInput.value : '';
-                if (note) {
-                    // JSON string retrieved from localStorage via key is parsed into JavaScript array
-                    // If empty, defaults to an empty array
-                    const notes = JSON.parse(localStorage.getItem(storageNotes)) || [];
-                    notes.push(note);
-                    // Converts the notes array back into JSON string and stores it in localStorage with the key storageNotes
-                    localStorage.setItem(storageNotes, JSON.stringify(notes));
-                    noteInput.value = '';
-                    // Sets the input field to an empty string and calls displayNotes to update the list of notes
-                    this.displayNotes();
-                    notesContainer.style.display = 'none';
-                }
-            }
+            const notes = JSON.parse(localStorage.getItem(storageNotes)) || [];
+            notes.push("");
+            localStorage.setItem(storageNotes, JSON.stringify(notes));
+            this.displayNotes();
         });
     }
 
@@ -128,24 +132,59 @@ class noteButtonController {
      * Displays the notes stored in localStorage.
      */
     displayNotes() {
-        const notesContainer = document.getElementById(notesContainer);
-        notesContainer.innerHTML = '';
+        const noteContainer = document.getElementById(notesContainer);
+        noteContainer.innerHTML = "";
         const notes = JSON.parse(localStorage.getItem(storageNotes)) || [];
 
         notes.forEach((note, index) => {
             const noteDiv = document.createElement(divNotes);
-            noteDiv.textContent = note;
+            const noteInput = document.createElement(inputText);
+            noteInput.id = notesInput + index;
+            noteInput.value = note;
+            noteInput.placeholder = messages.enterNote;
 
+            noteInput.addEventListener(input, () => this.updateNote(noteInput))
+            noteDiv.appendChild(noteInput)
+            
             const removeButton = document.createElement(buttonRemove);
             removeButton.textContent = messages.remove;
+            removeButton.setAttribute(className, remove);
             removeButton.setAttribute(dataIndex, index);
             this.removeButton(removeButton);
             noteDiv.appendChild(removeButton);
 
-            notesContainer.appendChild(noteDiv);
+            noteContainer.appendChild(noteDiv);
         });
+        this.updateTime();
+        
     }
 
+    viewNotes() {
+        const noteContainer = document.getElementById(notesContainer);
+        noteContainer.innerHTML = "";
+        const notes = JSON.parse(localStorage.getItem(storageNotes)) || [];
+        notes.forEach((note, index) => {
+            const noteDiv = document.createElement(divNotes);
+            const noteInput = document.createElement(divNotes);
+            noteInput.id = notesInput + index;
+            noteInput.setAttribute(className, elementNote);
+            noteInput.value = note;
+            noteInput.textContent = note;
+
+            noteDiv.appendChild(noteInput)
+
+            noteContainer.appendChild(noteDiv);
+            
+        });
+        this.updateTime();
+    }
+
+    updateTime() {
+        const date = new Date();
+        const thisTime = document.getElementById(dateTime);
+        thisTime.textContent = date.toLocaleString();
+        localStorage.setItem(updateTime, date.toLocaleString());
+    }
 }
 
 class UIBuilder {
@@ -179,20 +218,6 @@ class UIBuilder {
         
     }
 
-    // initWriterUI() {
-    //     const addNoteButton = document.getElementById(add);
-    //     const backHomeButton = document.getElementById(back);
-
-    //     // Initially hide the input container
-    //     const noteInputContainer = document.getElementById('noteInputContainer');
-    //     noteInputContainer.style.display = 'none';
-
-    //     this.noteButtonController.addButton(addNoteButton);
-    //     this.navigationController.backHome(backHomeButton);
-
-    //     this.noteButtonController.displayNotes(); // Display existing notes
-    // }
-
     initWriterUI() {
         this.addNoteButton = document.getElementById(add);
         this.removeNoteButtons = document.querySelectorAll(remove);
@@ -213,6 +238,7 @@ class UIBuilder {
         this.navigationController.backHome(this.backHomeButton);
 
         this.noteButtonController.displayNotes();
+        this.noteButtonController.updateTime();
     }
 
     initReaderUI() {
@@ -223,6 +249,16 @@ class UIBuilder {
         this.backHomeButton.innerHTML = messages.back;
 
         this.navigationController.backHome(this.backHomeButton);
+
+        this.noteButtonController.viewNotes();
+        this.noteButtonController.updateTime();
+
+        window.addEventListener(storage, (event) => {
+            if (event.key === storageNotes) {
+                this.noteButtonController.viewNotes();
+                this.noteButtonController.updateTime();
+            }
+        });
     }
 }
 
@@ -232,11 +268,6 @@ class Notes {
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener(DOMContentLoaded, () => {
     new UIBuilder(window.location.href);
 });
-
-// Loop through the notes in writer, each in their own div that has a remove button
-// for each, and removeButton is called there. 
-
-// displayNotes also gets current time and puts it on screen

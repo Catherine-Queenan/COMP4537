@@ -7,4 +7,5 @@ const messages = {
     reader : 'Read Notes',
     updateTime : 'Last Updated at: ',
     storeTime : 'Stored at: ',
+    enterNote : 'Enter Note Text Here',
 }
