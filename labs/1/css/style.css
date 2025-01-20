@@ -163,12 +163,11 @@ div {
 
 #notesContainer {
     overflow-y: scroll;
-    max-height : 800px;
+    max-height : 60%;
 }
 
 #notesContainer::-webkit-scrollbar {
     width: 10px;
-    padding
 }
 
 #notesContainer::-webkit-scrollbar-thumb {
