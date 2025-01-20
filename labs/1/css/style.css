@@ -160,3 +160,18 @@ div {
     background-color: #fbfbff;
     color: #221f1e;
 }
+
+#notesContainer {
+    overflow-y: scroll;
+    max-height : 800px;
+}
+
+#notesContainer::-webkit-scrollbar {
+    width: 10px;
+    padding
+}
+
+#notesContainer::-webkit-scrollbar-thumb {
+    background-color: black;
+    border-radius: 10px;
+}
