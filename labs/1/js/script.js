@@ -88,7 +88,6 @@ class noteButtonController {
             // If empty, defaults to an empty array
             const notes = JSON.parse(localStorage.getItem(storageNotes)) || [];
             notes[parseInt(noteInput.id.split("_")[1], 10)] = note;
-            // notes.push(note);
             // Converts the notes array back into JSON string and stores it in localStorage with the key storageNotes
             localStorage.setItem(storageNotes, JSON.stringify(notes));
         }
@@ -170,6 +169,7 @@ class noteButtonController {
             noteInput.setAttribute(className, elementNote);
             noteInput.value = note;
             noteInput.textContent = note;
+            noteInput.innerHTML = note.replace(/\n/g, '<br>');
 
             noteDiv.appendChild(noteInput)
 

@@ -109,6 +109,14 @@ textarea::selection {
     color: #221f1e
 }
 
+textarea::-webkit-scrollbar {
+    width: 10px;
+}
+
+textarea::-webkit-scrollbar-thumb {
+    background-color: black;
+    border-radius: 10px;
+}
 
 .remove {
     background-color: #571919;
@@ -154,6 +162,22 @@ div {
     min-width : 300px;
     font-size : 0.75em;
     height : 80px;
+    max-width: 300px;
+    overflow-y:auto;
+    overflow-x:hidden;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    text-align :left;
+}
+
+.note::-webkit-scrollbar {
+    width: 10px;
+}
+
+.note::-webkit-scrollbar-thumb {
+    background-color: black;
+    border-radius: 10px;
 }
 
 .note::selection {
