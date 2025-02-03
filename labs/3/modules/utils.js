@@ -14,7 +14,7 @@ const path = require('path');
 // URL paths
 const pathName = "/labs/3/";
 const datePath = "getDate/";
-const writeFilePath = "writeFile/file.txt";
+const writeFilePath = "writeFile/";
 const readFilePath = "readFile/file.txt";
 const fileName = "file.txt";
 
