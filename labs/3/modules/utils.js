@@ -15,7 +15,7 @@ const path = require('path');
 const pathName = "/labs/3/";
 const datePath = "getDate/";
 const writeFilePath = "writeFile/";
-const readFilePath = "readFile/file.txt";
+const readFilePath = "readFile/";
 const fileName = "file.txt";
 
 // Content types
@@ -54,20 +54,24 @@ class ServerInfo {
             if (text) {
                 this.writeToFile(text); // Append the text to file.txt
                 res.writeHead(200, { contentType: textPlain });
-                res.end(`Text "${text}" appended to file.txt`);
+                const successMessage = messages.successText.replace("%1", text);
+                res.end(successMessage);
             } else {
                 res.writeHead(400, { contentType: textPlain });
                 res.end(messages.errorText);
             }
         }
         // Reading from file
-        else if (parsedUrl.pathname === `${pathName}${readFilePath}`) {
-            const filePath = path.join(__dirname, fileName);
+        else if (parsedUrl.pathname.startsWith(`${pathName}${readFilePath}`)) {
+            const params = parsedUrl.pathname.split('/');
+            const file = params[params.length - 1];
+            
+            const filePath = path.join(__dirname, file);
 
             fs.readFile(filePath, utf, (err, data) => {
                 if (err) {
                     res.writeHead(404, { contentType: textPlain });
-                    const error = messages.errorFile.replace("%1", parsedUrl.pathname);
+                    const error = messages.errorFile.replace("%1", file);
                     res.end(error);
                 } else {
                     res.writeHead(200, { contentType: textPlain });
