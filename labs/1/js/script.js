@@ -82,6 +82,7 @@ class noteButtonController {
     constructor() {}
 
     updateNote(noteInput) {
+        // Retrieves the note text from the note input element
         const note = noteInput ? noteInput.value : '';
         if (note) {
             // JSON string retrieved from localStorage via key is parsed into JavaScript array
