@@ -3,7 +3,7 @@ const ServerInfo = require("./modules/utils");
 
 class Server {
     constructor(port) {
-        this.port = port || 3000;
+        this.port = port || 8080;
         this.serverInfo = new ServerInfo();
     }
 
@@ -19,5 +19,5 @@ class Server {
     }
 }
 
-const app = new Server(3000);
+const app = new Server(8080);
 app.start();
