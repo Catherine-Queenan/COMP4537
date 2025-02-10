@@ -5,6 +5,8 @@ const jsonConst = "application/json";
 const domContent = "DOMContentLoaded";
 const apiDefinitions = "/api/definitions";
 const wordGet = "/?word=";
+const searchHtml = "search.html";
+const storeHtml = "store.html";
 
 const storeFormConst = "storeForm";
 const searchFormConst = "searchForm";
@@ -14,10 +16,13 @@ const searchWordConst = "searchWord";
 const responseConst = "response";
 const searchResultConst = "searchResult";
 const submitConst = "submit";
+const navigationConst = "navigation";
 
 const successConst = "success";
 const errorConst = "error";
 const blockConst = "block";
+const buttonConst = "button";
+const dataEn = "data-en";
 
 class DictionaryAPI {
     constructor(apiBaseUrl) {
@@ -84,6 +89,8 @@ class DictionaryUI {
     constructor(api) {
         this.api = api;
         this.initEventListeners();
+        this.setTextContent();
+        this.initNavigationButtons();
     }
 
     initEventListeners() {
@@ -123,6 +130,56 @@ class DictionaryUI {
         element.innerText = message;
         element.className = isSuccess ? successConst : errorConst;
         element.style.display = blockConst;
+    }
+
+    initNavigationButtons() {
+        if (document.getElementById(storeFormConst)) {
+            // Create a button for navigation from the Store page to the Search page
+            const storeButton = new NavigationButton(navigationConst, en.goSearch, searchHtml);
+            storeButton.createButton();
+        }
+
+        if (document.getElementById(searchFormConst)) {
+            // Create a button for navigation from the Search page to the Store page
+            const searchButton = new NavigationButton(navigationConst, en.goStore, storeHtml);
+            searchButton.createButton();
+        }
+    }
+
+    setTextContent() {
+        const elements = document.querySelectorAll(`[${dataEn}]`);
+
+        elements.forEach((element) => {
+            const key = element.getAttribute(dataEn);
+            if (en[key]) {
+                element.innerText = en[key];
+            }
+        });
+    }
+}
+
+class NavigationButton {
+    constructor(containerId, buttonText, targetPage) {
+        this.containerId = containerId;
+        this.buttonText = buttonText;
+        this.targetPage = targetPage;
+    }
+
+    createButton() {
+        const container = document.getElementById(this.containerId);
+        if (!container) return;
+
+        // Create a new button element
+        const button = document.createElement(buttonConst);
+        button.innerText = this.buttonText;
+
+        // Add click event to navigate to the target page
+        button.onclick = () => {
+            window.location.href = this.targetPage;
+        };
+
+        // Append the button to the container
+        container.appendChild(button);
     }
 }
 

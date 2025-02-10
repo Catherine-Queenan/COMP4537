@@ -8,6 +8,15 @@ const en = {
     internalServerError: "Internal Server Error",
     requestMessage: "Request #",
     definitionMessage: "Definition: ",
-    unknownError: "Unknown Error"
+    unknownError: "Unknown Error",
+    goStore: "Go to Dictionary Store",
+    goSearch: "Go to Dictionary Search",
+    searchWord : "Search for a Word",
+    addWord : "Add a Word to the Dictionary",
+    submit : "Submit",
+    word : "Word:",
+    definition : "Definition:",
+    enterWord : "Enter a Word:",
+    search : "Search",
 };
 

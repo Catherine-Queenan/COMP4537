@@ -7,15 +7,16 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-    <h2>Add a Word to the Dictionary</h2>
+    <h2 data-en="addWord"></h2>
     <form id="storeForm">
-        <label for="word">Word:</label>
+        <label for="word" data-en="word"></label>
         <input type="text" id="word" required>
-        <label for="definition">Definition:</label>
+        <label for="definition" data-en="definition"></label>
         <textarea id="definition" required></textarea>
-        <button type="submit">Submit</button>
+        <button type="submit" data-en="submit"></button>
     </form>
     <p id="response"></p>
+    <div id="navigation"></div>
     <script src="./js/script.js"></script>
     <script src="./lang/messages/en/en.js"></script>
 </body>

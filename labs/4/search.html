@@ -7,13 +7,14 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-    <h2>Search for a Word</h2>
+    <h2 data-en="searchWord"></h2>
     <form id="searchForm">
-        <label for="searchWord">Enter a word:</label>
+        <label for="searchWord" data-en="enterWord"></label>
         <input type="text" id="searchWord" required>
-        <button type="submit">Search</button>
+        <button type="submit" data-en="search"></button>
     </form>
     <p id="searchResult"></p>
+    <div id="navigation"></div>
     <script src="./js/script.js"></script>
     <script src="./lang/messages/en/en.js"></script>
 </body>
