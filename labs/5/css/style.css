@@ -1,28 +1,32 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family:Georgia, 'Times New Roman', Times, serif;
     margin: 20px;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #313131;
     text-align: center;
 }
 
 h1, h2 {
-    color: #333;
+    color: #fcfcfc;
 }
 
 button {
-    background-color: #007bff;
-    color: white;
+    background-color: #9f3eff;
+    color: rgba(255, 255, 255, 0.877);
     border: none;
     padding: 10px 15px;
     font-size: 16px;
     cursor: pointer;
     border-radius: 5px;
     margin: 10px;
+    transition: 0.2s;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-weight: bold;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #6500b3;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 textarea {
@@ -30,16 +34,53 @@ textarea {
     max-width: 500px;
     height: 100px;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #191919;
     border-radius: 5px;
     font-size: 14px;
+    background-color: #f8eaff;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: bold;
 }
 
 #responseOutput {
     margin-top: 20px;
     padding: 10px;
-    background-color: white;
-    border: 1px solid #ddd;
+    background-color: #f8eaff;
+    border: 1px solid #191919;
     border-radius: 5px;
     min-height: 50px;
+    
+}
+
+/* Style the data table */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+/* Style table header */
+.data-table th {
+    background-color: #9f3eff;
+    color: white;
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #191919;
+}
+
+/* Style table rows */
+.data-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+/* Add alternating row colors */
+.data-table tbody tr:nth-child(even) {
+    background-color: #f0dcff;
+}
+
+/* Hover effect */
+.data-table tbody tr:hover {
+    background-color: #d0b4dd;
+    transition: 0.2s;
 }

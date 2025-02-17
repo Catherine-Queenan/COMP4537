@@ -18,5 +18,6 @@ const en = {
     definition : "Definition:",
     enterWord : "Enter a Word:",
     search : "Search",
+    
 };
 
